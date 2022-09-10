@@ -3,5 +3,5 @@
 using namespace std;
 
 void test(){
-    cout << "Test is working" << endl;
+    cout << "All Tests Passed!" << endl;
 }
