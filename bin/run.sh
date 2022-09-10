@@ -1,7 +1,7 @@
 #!/bin/bash
 GREEN='\033[0;32m'
 NC='\033[0m' # No Color
-
+#change
 
 start_message(){
     printf "${GREEN}Starting Block Cipher Program${NC}\n"
