@@ -46,7 +46,8 @@ int main(int argc, char *argv[])
 {
     verifyArguments(argv);
 
-
+    cout << getMessage() << endl;
+    beginCipher(argv);
 
     test();
 
