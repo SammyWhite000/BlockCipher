@@ -11,4 +11,4 @@ main.o: main.cc
 	$(CC) $(CPPFLAGs) -c main.cc
 
 clean:
-	$(RM) main.o blockCipher.o Target
+	$(RM) main.o blockCipher.o Target blockCipher.h.gch
