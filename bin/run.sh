@@ -46,10 +46,10 @@ test_arguments(){
 execute_program(){
 
     printf "${RED}Test Encryption!${NC}\n"
-    ./Target S fileMessage.txt out.txt keyfile.txt E
+    ./Target S input.txt out.txt keyfile.txt E
     echo ""
     printf "${RED}Test Decryption!${NC}\n"
-    ./Target B fileMessage.txt out.txt keyfile.txt D
+    #./Target B fileMessage.txt out.txt keyfile.txt E
     echo ""
 
     make clean

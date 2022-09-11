@@ -14,21 +14,26 @@ void writeFile(std::string encrypt, std::string fileName){
 }
 
 // Get Message and Key from Files
-std::string getFileContent(char message_file[]){
+std::string getFileContent(char message_file[], std::string newline){
     std::string file = message_file; 
-    std::string message; std::ifstream inFile;
+    // std::string message; std::ifstream inFile;
+    // inFile.open(message_file);
+    // getline(inFile, message);
+    // inFile.close();
 
-    inFile.open(message_file);
-    getline(inFile, message);
-
-    inFile.close();
-
+    std::ifstream t(message_file);
+    std::stringstream buffer;
+    buffer << t.rdbuf();
+    buffer.ignore();
+    std::string message = buffer.str();
+    message += newline;
     return message;
 }
 
 // Determine number of bytes of padding needed
 int deterPadding(std::string message){
     int message_length = message.length();
+    //std::cout << "length " << message_length << '\n';
     if(message_length % 16 != 0){
         int partWay = message_length / 16; 
         return ((partWay + 1) * 16) - message_length;
@@ -53,6 +58,8 @@ std::string swapAlg(std::string xORMessage, std::string key){
 
     char *first_element = &xORMessage.front();
     char *last_element = &xORMessage.back();
+    std::cout<<xORMessage<<'\n';
+    std::cout<<*first_element<<'\n';
     int key_index = 0;
     while(first_element != last_element){
         if(key_index == int(key.length()))
@@ -72,6 +79,7 @@ std::string swapAlg(std::string xORMessage, std::string key){
             first_element += 1;
         }
     }
+    std::cout<<xORMessage<<'\n';
     return xORMessage;
 }
 
@@ -90,8 +98,8 @@ std::string xOR(std::string updatedMessage, std::string key){
 void encrypMessage(char* argv[]){
 
     // Get the Message and then the key
-    std::string message = getFileContent(argv[2]);
-    std::string key = getFileContent(argv[4]);
+    std::string message = getFileContent(argv[2], "\n");
+    std::string key = getFileContent(argv[4], "");
 
     // Get the new message with padding
     std::string updatedMessage = addPadding(message); 
