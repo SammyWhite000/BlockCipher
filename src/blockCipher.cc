@@ -33,7 +33,6 @@ std::string getFileContent(char message_file[], std::string newline){
 // Determine number of bytes of padding needed
 int deterPadding(std::string message){
     int message_length = message.length();
-    //std::cout << "length " << message_length << '\n';
     if(message_length % 16 != 0){
         int partWay = message_length / 16; 
         return ((partWay + 1) * 16) - message_length;
@@ -55,11 +54,8 @@ std::string addPadding(std::string message){
 
 // Swap elements Based On Algorithm
 std::string swapAlg(std::string xORMessage, std::string key){
-
     char *first_element = &xORMessage.front();
     char *last_element = &xORMessage.back();
-    std::cout<<xORMessage<<'\n';
-    std::cout<<*first_element<<'\n';
     int key_index = 0;
     while(first_element != last_element){
         if(key_index == int(key.length()))
@@ -79,7 +75,6 @@ std::string swapAlg(std::string xORMessage, std::string key){
             first_element += 1;
         }
     }
-    std::cout<<xORMessage<<'\n';
     return xORMessage;
 }
 
