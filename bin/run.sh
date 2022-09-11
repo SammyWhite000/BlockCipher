@@ -48,9 +48,9 @@ execute_program(){
     printf "${RED}Test Strings!${NC}\n"
     ./Target S fileMessage.txt out.txt keyfile.txt E
     ./Target B fileMessage.txt out.txt keyfile.txt D
-    ./Target S fileMessage.txt out.txt keyfile.txt E
-    ./Target S fileMessage.txt out.txt keyfile.txt E
     echo ""
+
+    make clean
 }
 
 # Indicate end of test
@@ -66,6 +66,7 @@ main(){
     execute_program
     echo ""
     end_message
+    echo ""
 }
 
 main

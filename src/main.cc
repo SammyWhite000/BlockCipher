@@ -24,7 +24,7 @@ void verifyLetterArg(char *argv[], int argIndex){
 void verifySecondArg(char argv[]){
     string fileName = argv;
     ifstream fileMessage;
-    fileMessage.open("../Resources/" + fileName);
+    fileMessage.open(fileName);
 
     if(!fileMessage){
         cerr << "That File Does Not Exist!" << "\n";
@@ -46,7 +46,6 @@ int main(int argc, char *argv[])
 {
     verifyArguments(argv);
 
-    cout << getMessage() << endl;
     beginCipher(argv);
 
     test();
