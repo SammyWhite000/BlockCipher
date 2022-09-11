@@ -48,7 +48,5 @@ int main(int argc, char *argv[])
 
     beginCipher(argv);
 
-    test();
-
     return 0;
 }

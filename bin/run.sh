@@ -45,8 +45,10 @@ test_arguments(){
 
 execute_program(){
 
-    printf "${RED}Test Strings!${NC}\n"
+    printf "${RED}Test Encryption!${NC}\n"
     ./Target S fileMessage.txt out.txt keyfile.txt E
+    echo ""
+    printf "${RED}Test Decryption!${NC}\n"
     ./Target B fileMessage.txt out.txt keyfile.txt D
     echo ""
 
