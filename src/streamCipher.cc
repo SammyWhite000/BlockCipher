@@ -34,14 +34,14 @@ void writeStream(std::string message, std::string fileName){
 void encryptStream(char* argv[]){
     std::string key = fileIngest(argv[4]);
     std::string encrypt = streamXOR(fileIngest(argv[2]), key);
-    std::cout << "Got: " << encrypt << '\n';
+    std::cout << "Got:      " << encrypt << '\n';
     writeStream(encrypt, argv[3]);
 }
 
 void decryptStream(char* argv[]){
     std::string key = fileIngest(argv[4]);
     std::string decrypt = streamXOR(fileIngest(argv[3]), fileIngest(argv[4]));
-    std::cout << "Got: " << decrypt << '\n';
+    std::cout << "Got:      " << decrypt << '\n';
     writeStream(decrypt, argv[3]);
 }
 
