@@ -60,7 +60,7 @@ int main(int argc, char *argv[])
         beginCipher(argv);
     }
     else{
-        test1();
+        beginStream(argv);
     }
     
 
