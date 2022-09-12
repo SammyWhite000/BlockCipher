@@ -16,7 +16,7 @@ make_exec(){
 }
 
 # Commands to run program
-execute_program(){    
+test_arguments(){    
 
     # Verify first arguments
     printf "${RED}First Arg Tests!${NC}\n"
@@ -38,10 +38,21 @@ execute_program(){
     ./Target S fileMessage.txt out keyfile.txt K
     echo ""
 
-
     # Clean Up Not Needed Files
     make clean
 
+}
+
+execute_program(){
+
+    printf "${RED}Test Encryption!${NC}\n"
+    ./Target B fileMessage.txt out.txt keyfile.txt E
+    echo ""
+    printf "${RED}Test Decryption!${NC}\n"
+    ./Target B fileMessage.txt out.txt keyfile.txt D
+    echo ""
+
+    make clean
 }
 
 # Indicate end of test
@@ -51,10 +62,13 @@ end_message(){
 
 main(){
     start_message
+    # Make executable file
     make_exec
+    # test_arguments # Test that the arguments are working
     execute_program
     echo ""
     end_message
+    echo ""
 }
 
 main
