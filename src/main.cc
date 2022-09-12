@@ -2,6 +2,7 @@
 #include <fstream>
 #include <string>
 #include "blockCipher.h"
+#include "streamCipher.h"
 
 using namespace std;
 
@@ -32,8 +33,18 @@ void verifySecondArg(char argv[]){
     }
 }
 
+void zeroArgs(int argc){
+    if (argc == 1){
+        cerr << "No Arguments were given!" << "\n";
+        exit(-1);
+    }
+}
+
 //Verify all arguments are correct
-void verifyArguments(char *argv[]){
+void verifyArguments(int argc, char *argv[]){
+    // Verify arguments were given
+    zeroArgs(argc);
+
     // Verify First Arg
     verifyLetterArg(argv, 1);
     // Verify Second Arg
@@ -44,9 +55,14 @@ void verifyArguments(char *argv[]){
 
 int main(int argc, char *argv[])
 {
-    verifyArguments(argv);
-
-    beginCipher(argv);
+    verifyArguments(argc, argv);
+    if(*argv[1] == 'B'){
+        beginCipher(argv);
+    }
+    else{
+        test1();
+    }
+    
 
     return 0;
 }

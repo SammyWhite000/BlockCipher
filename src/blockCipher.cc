@@ -1,32 +1,20 @@
 #include "blockCipher.h"
 
-//using namespace std;
-
-void test(){
-    std::cout << "All Tests Passed!" << std::endl;
-}
 
 // Write Encrypted Message to a File
-void writeFile(std::string encrypt, std::string fileName){
+void writeFile(std::string message, std::string fileName){
     std::ofstream out(fileName);
-    out << encrypt;
+    out << message;
     out.close();
 }
 
 // Get Message and Key from Files
-std::string getFileContent(char message_file[], std::string newline){
+std::string getFileContent(char message_file[]){
     std::string file = message_file; 
-    // std::string message; std::ifstream inFile;
-    // inFile.open(message_file);
-    // getline(inFile, message);
-    // inFile.close();
-
     std::ifstream t(message_file);
     std::stringstream buffer;
     buffer << t.rdbuf();
-    buffer.ignore();
     std::string message = buffer.str();
-    message += newline;
     return message;
 }
 
@@ -91,10 +79,10 @@ std::string xOR(std::string updatedMessage, std::string key){
 
 // Facilitate Message Encryption 
 void encrypMessage(char* argv[]){
-
+    std::cout << "Begin Encryption" << '\n';
     // Get the Message and then the key
-    std::string message = getFileContent(argv[2], "\n");
-    std::string key = getFileContent(argv[4], "");
+    std::string message = getFileContent(argv[2]);
+    std::string key = getFileContent(argv[4]);
 
     // Get the new message with padding
     std::string updatedMessage = addPadding(message); 
@@ -104,14 +92,23 @@ void encrypMessage(char* argv[]){
 
 }
 
+std::string removePadding(std::string decryptMessage){
+    std::string noPadding;
+    for(size_t i = 0; i < decryptMessage.length(); i++){
+        if(decryptMessage[i] != static_cast<char>(129))
+            noPadding += decryptMessage[i];
+    }
+    return noPadding;
+}
+
 // Decrypt Message
 void decryptMessage(char* argv[]){
-    std::cout << "Decrypt Working" << '\n';
+    std::cout << "Begin Decryption" << '\n';
+    writeFile(removePadding(xOR(swapAlg(getFileContent(argv[3]), getFileContent(argv[4])), getFileContent(argv[4]))), argv[3]);
 }
 
 // Determine Encryption or Decryption 
 void beginCipher(char *argv[]){
-    std::cout << "Begin Cipher Working" << '\n';
     if(*argv[5] == 'E')
         encrypMessage(argv);
     else if (*argv[5] == 'D'){

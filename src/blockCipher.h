@@ -5,8 +5,8 @@
 #include <iostream> 
 #include <fstream>
 #include <sstream>
+#include <algorithm>
 
-void test();
 void writeFile(std::string encrypt, std::string fileName);
 void encrypMessage(char* argv[]);
 void decryptMessage(char* argv[]);
