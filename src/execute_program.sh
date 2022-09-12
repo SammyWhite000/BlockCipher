@@ -4,11 +4,6 @@ RED='\033[0;31m'
 BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
-start_message(){
-    printf "${GREEN}Starting Block Cipher Program${NC}\n"
-}
-
-# Run make file and create executable 
 make_exec(){
     cd ../src
     make
@@ -16,7 +11,6 @@ make_exec(){
     printf "${GREEN}Beginning Tests!${NC}\n"
 }
 
-# Commands to run program
 test_arguments(){    
 
     # Verify first arguments
@@ -41,40 +35,36 @@ test_arguments(){
 
     # Clean Up Not Needed Files
     make clean
-
 }
 
-execute_block(){
+execute_prog(){
     printf "${BLUE}Testing Block Cipher!${NC}\n"
 
     printf "${RED}Test Encryption!${NC}\n"
+    echo "Expected: ��8#G=ArEXZ^FrU 8%(=9,><c]QZGBR54(o1Y\TV6u$'"
     ./Target B fileMessage.txt out.txt key.txt E
     echo ""
-    sleep 10 
+
     printf "${RED}Test Decryption!${NC}\n"
+    echo "Expected: This is a another example with a sample input"
     ./Target B fileMessage.txt out.txt key.txt D
     echo ""
 
-    make clean
-}
+    rm out.txt
 
-execute_stream(){
     printf "${BLUE}Testing Stream Cipher!${NC}\n"
 
     printf "${RED}Test Encryption!${NC}\n"
-    ./Target S fileMessage.txt out.txt key.txt D
+    echo "Expected: '$#u=6rVTZ\FYU1o((495>RB]GZQc<,=%8 r^XEAG8"
+    ./Target S fileMessage.txt out.txt key.txt E
     echo ""
-    sleep 10 
+
     printf "${RED}Test Decryption!${NC}\n"
-    ./Target S fileMessage.txt out.txt keyfile.txt D
+    echo "Expected: This is a another example with a sample input"
+    ./Target S fileMessage.txt out.txt key.txt D
     echo ""
 
     make clean
-}
-
-# Indicate end of test
-end_message(){  
-    printf "${GREEN}Ending Encryption Program${NC}\n"
 }
 
 main(){
@@ -82,13 +72,7 @@ main(){
     make_exec
     echo ""
 
-    # test_arguments # Test that the arguments are working
-    #execute_block
-    execute_stream
-    echo ""
-
-    end_message
-    echo ""
+    execute_prog
 }
 
 main

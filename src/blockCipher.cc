@@ -1,6 +1,5 @@
 #include "blockCipher.h"
 
-
 // Write Encrypted Message to a File
 void writeFile(std::string message, std::string fileName){
     std::ofstream out(fileName);
@@ -79,15 +78,14 @@ std::string xOR(std::string updatedMessage, std::string key){
 
 // Facilitate Message Encryption 
 void encrypMessage(char* argv[]){
-    std::cout << "Begin Encryption" << '\n';
     // Get the Message and then the key
     std::string message = getFileContent(argv[2]);
     std::string key = getFileContent(argv[4]);
-
     // Get the new message with padding
     std::string updatedMessage = addPadding(message); 
     std::string xORMessage = xOR(updatedMessage, key);
     std::string encrypt = swapAlg(xORMessage, key);
+    std::cout << "Got: " << encrypt << '\n';
     writeFile(encrypt, argv[3]);
 
 }
@@ -103,7 +101,8 @@ std::string removePadding(std::string decryptMessage){
 
 // Decrypt Message
 void decryptMessage(char* argv[]){
-    std::cout << "Begin Decryption" << '\n';
+    std::string decrypt = removePadding(xOR(swapAlg(getFileContent(argv[3]), getFileContent(argv[4])), getFileContent(argv[4])));
+    std::cout << "Got: " << decrypt << '\n';
     writeFile(removePadding(xOR(swapAlg(getFileContent(argv[3]), getFileContent(argv[4])), getFileContent(argv[4]))), argv[3]);
 }
 
