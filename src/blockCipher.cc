@@ -85,7 +85,7 @@ void encrypMessage(char* argv[]){
     std::string updatedMessage = addPadding(message); 
     std::string xORMessage = xOR(updatedMessage, key);
     std::string encrypt = swapAlg(xORMessage, key);
-    std::cout << "Got: " << encrypt << '\n';
+    std::cout << "Got:      " << encrypt << '\n';
     writeFile(encrypt, argv[3]);
 
 }
@@ -102,7 +102,7 @@ std::string removePadding(std::string decryptMessage){
 // Decrypt Message
 void decryptMessage(char* argv[]){
     std::string decrypt = removePadding(xOR(swapAlg(getFileContent(argv[3]), getFileContent(argv[4])), getFileContent(argv[4])));
-    std::cout << "Got: " << decrypt << '\n';
+    std::cout << "Got:      " << decrypt << '\n';
     writeFile(removePadding(xOR(swapAlg(getFileContent(argv[3]), getFileContent(argv[4])), getFileContent(argv[4]))), argv[3]);
 }
 

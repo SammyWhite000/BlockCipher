@@ -28,7 +28,7 @@ void verifySecondArg(char argv[]){
     fileMessage.open(fileName);
 
     if(!fileMessage){
-        cerr << "That File Does Not Exist!" << "\n";
+        cerr << fileName << " Does Not Exist!" << "\n";
         exit(-1);
     }
 }
@@ -40,6 +40,8 @@ void zeroArgs(int argc){
     }
 }
 
+
+
 //Verify all arguments are correct
 void verifyArguments(int argc, char *argv[]){
     // Verify arguments were given
@@ -49,6 +51,7 @@ void verifyArguments(int argc, char *argv[]){
     verifyLetterArg(argv, 1);
     // Verify Second Arg
     verifySecondArg(argv[2]);
+    verifySecondArg(argv[4]);
     // Verify Fifth Arg
     verifyLetterArg(argv, 5);
 }
