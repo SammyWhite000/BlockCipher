@@ -55,7 +55,7 @@ execute_prog(){
     printf "${BLUE}Testing Stream Cipher!${NC}\n"
 
     printf "${RED}Test Encryption!${NC}\n"
-    echo "Expected: '$#u=6rVTZ\FYU1o((495>RB]GZQc<,=%8 r^XEAG8"
+    echo "Expected: '\$#u=6rVTZ\FYU1o((495>RB]GZQc<,=%8 r^XEAG8"
     ./Target S fileMessage.txt out.txt key.txt E
     echo ""
 

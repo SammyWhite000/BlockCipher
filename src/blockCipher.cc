@@ -22,6 +22,7 @@ int deterPadding(std::string message){
     int message_length = message.length();
     if(message_length % 16 != 0){
         int partWay = message_length / 16; 
+        // Determine how many bytes of padding to add
         return ((partWay + 1) * 16) - message_length;
     }
     return 0;
