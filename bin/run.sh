@@ -68,9 +68,14 @@ execute_stream(){
     printf "${RED}Test Encryption!${NC}\n"
     ./Target S fileMessage.txt out.txt key.txt E
 
+    # test difference btween out.txt and TA Example
+    printf "${RED}Test Difference in Output!${NC}\n"
+    diff out.txt ../examples/UpdatedTestTA/Encryption/outputStreamEncryption.txt
+
 
     printf "${RED}Test Decryption!${NC}\n"
-    ./Target S fileMessage.txt out.txt keyfile.txt D
+    ./Target S fileMessage.txt out.txt key.txt D
+    diff out.txt ../examples/UpdatedTestTA/Decryption/outputStreamDecrypt.txt
 
     make clean
 }
@@ -87,7 +92,9 @@ main(){
 
     # test_arguments # Test that the arguments are working
     execute_block
-    #execute_stream
+
+    make_exec
+    execute_stream
     echo ""
 
     end_message
