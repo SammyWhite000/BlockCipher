@@ -49,10 +49,14 @@ execute_block(){
 
     printf "${RED}Test Encryption!${NC}\n"
     ./Target B fileMessage.txt out.txt key.txt E
-    echo ""
-    sleep 10 
+
+    # test difference btween out.txt and TA Example
+    printf "${RED}Test Difference in Output!${NC}\n"
+    diff out.txt ../examples/UpdatedTestTA/Encryption/outputBlockEncryption.txt
+
     printf "${RED}Test Decryption!${NC}\n"
     ./Target B fileMessage.txt out.txt key.txt D
+    diff out.txt ../examples/UpdatedTestTA/Decryption/outputBlockDecrypt.txt
     echo ""
 
     make clean
@@ -62,12 +66,11 @@ execute_stream(){
     printf "${BLUE}Testing Stream Cipher!${NC}\n"
 
     printf "${RED}Test Encryption!${NC}\n"
-    ./Target S fileMessage.txt out.txt key.txt D
-    echo ""
-    sleep 10 
+    ./Target S fileMessage.txt out.txt key.txt E
+
+
     printf "${RED}Test Decryption!${NC}\n"
     ./Target S fileMessage.txt out.txt keyfile.txt D
-    echo ""
 
     make clean
 }
@@ -83,8 +86,8 @@ main(){
     echo ""
 
     # test_arguments # Test that the arguments are working
-    #execute_block
-    execute_stream
+    execute_block
+    #execute_stream
     echo ""
 
     end_message
