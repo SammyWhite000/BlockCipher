@@ -49,7 +49,7 @@ void verifyArguments(int argc, char *argv[]){
 
     // Verify First Arg
     verifyLetterArg(argv, 1);
-    // Verify Second Arg
+    // Verify Second Arg and Fourth Arg
     verifySecondArg(argv[2]);
     verifySecondArg(argv[4]);
     // Verify Fifth Arg

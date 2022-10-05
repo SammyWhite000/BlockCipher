@@ -21,22 +21,30 @@ test_arguments(){
 
     # Verify first arguments
     printf "${RED}First Arg Tests!${NC}\n"
-    ./Target A fileMessage.txt out keyfile.txt E
-    ./Target S fileMessage.txt out keyfile.txt E
-    ./Target B fileMessage.txt out keyfile.txt D
+    ./Target A fileMessage.txt out.txt key.txt E
+    ./Target op fileMessage.txt out.txt key.txt E
+    ./Target k fileMessage.txt out.txt key.txt D
+    ./Target z fileMessage.txt out.txt key.txt D
     echo ""
 
     printf "${RED}Second Arg Tests!${NC}\n"
-    ./Target S test.txt out keyfile.txt E
-    ./Target B random.txt out keyfile.txt D
-    ./Target S fileMessage.txt out keyfile.txt D
+    ./Target S test.txt out.txt key.txt E
+    ./Target B random.txt out.txt key.txt D
+    ./Target S eeeee.txt out.txt key.txt D
+    echo ""
+
+    printf "${RED}Fourth Arg Tests!${NC}\n"
+    ./Target S fileMessage.txt out.txt key1.txt E
+    ./Target B fileMessage.txt out.txt stuff.txt D
+    ./Target S fileMessage.txt out.txt reee.txt F
+    ./Target S fileMessage.txt out.txt lll.txt K
     echo ""
 
     printf "${RED}Fifth Arg Tests!${NC}\n"
-    ./Target S fileMessage.txt out keyfile.txt E
-    ./Target B fileMessage.txt out keyfile.txt D
-    ./Target S fileMessage.txt out keyfile.txt F
-    ./Target S fileMessage.txt out keyfile.txt K
+    ./Target S fileMessage.txt out.txt key.txt mn
+    ./Target B fileMessage.txt out.txt key.txt cool
+    ./Target S fileMessage.txt out.txt key.txt F
+    ./Target S fileMessage.txt out.txt key.txt K
     echo ""
 
     # Clean Up Not Needed Files
@@ -52,11 +60,11 @@ execute_block(){
 
     # test difference btween out.txt and TA Example
     printf "${RED}Test Difference in Output!${NC}\n"
-    diff out.txt ../examples/UpdatedTestTA/Encryption/outputBlockEncryption.txt
+    diff out.txt ../examples/TestCases/Encryption/outputBlockEncryption.txt
 
     printf "${RED}Test Decryption!${NC}\n"
     ./Target B fileMessage.txt out.txt key.txt D
-    diff out.txt ../examples/UpdatedTestTA/Decryption/outputBlockDecrypt.txt
+    diff out.txt ../examples/TestCases/Decryption/outputBlockDecryption.txt
     echo ""
 
     make clean
@@ -70,14 +78,24 @@ execute_stream(){
 
     # test difference btween out.txt and TA Example
     printf "${RED}Test Difference in Output!${NC}\n"
-    diff out.txt ../examples/UpdatedTestTA/Encryption/outputStreamEncryption.txt
+    diff out.txt ../examples/TestCases/Encryption/outputStreamEncryption.txt
 
 
     printf "${RED}Test Decryption!${NC}\n"
     ./Target S fileMessage.txt out.txt key.txt D
-    diff out.txt ../examples/UpdatedTestTA/Decryption/outputStreamDecrypt.txt
+    diff out.txt ../examples/TestCases/Decryption/outputStreamDecryption.txt
 
     make clean
+}
+
+ta_grading(){
+    echo ""
+    printf "${GREEN}TA Testing!${NC}\n"
+    cp Target ../examples/TAGrading/
+    cd ../examples/TAGrading/ 
+    mv Target cipher
+    ./testcases.sh
+    rm cipher
 }
 
 # Indicate end of test
@@ -90,7 +108,8 @@ main(){
     make_exec
     echo ""
 
-    # test_arguments # Test that the arguments are working
+    test_arguments # Test that the arguments are working
+    make_exec
     execute_block
 
     make_exec
