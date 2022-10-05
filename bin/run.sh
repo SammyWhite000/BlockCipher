@@ -21,22 +21,30 @@ test_arguments(){
 
     # Verify first arguments
     printf "${RED}First Arg Tests!${NC}\n"
-    ./Target A fileMessage.txt out keyfile.txt E
-    ./Target S fileMessage.txt out keyfile.txt E
-    ./Target B fileMessage.txt out keyfile.txt D
+    ./Target A fileMessage.txt out.txt key.txt E
+    ./Target op fileMessage.txt out.txt key.txt E
+    ./Target k fileMessage.txt out.txt key.txt D
+    ./Target z fileMessage.txt out.txt key.txt D
     echo ""
 
     printf "${RED}Second Arg Tests!${NC}\n"
-    ./Target S test.txt out keyfile.txt E
-    ./Target B random.txt out keyfile.txt D
-    ./Target S fileMessage.txt out keyfile.txt D
+    ./Target S test.txt out.txt key.txt E
+    ./Target B random.txt out.txt key.txt D
+    ./Target S eeeee.txt out.txt key.txt D
+    echo ""
+
+    printf "${RED}Fourth Arg Tests!${NC}\n"
+    ./Target S fileMessage.txt out.txt key1.txt E
+    ./Target B fileMessage.txt out.txt stuff.txt D
+    ./Target S fileMessage.txt out.txt reee.txt F
+    ./Target S fileMessage.txt out.txt lll.txt K
     echo ""
 
     printf "${RED}Fifth Arg Tests!${NC}\n"
-    ./Target S fileMessage.txt out keyfile.txt E
-    ./Target B fileMessage.txt out keyfile.txt D
-    ./Target S fileMessage.txt out keyfile.txt F
-    ./Target S fileMessage.txt out keyfile.txt K
+    ./Target S fileMessage.txt out.txt key.txt mn
+    ./Target B fileMessage.txt out.txt key.txt cool
+    ./Target S fileMessage.txt out.txt key.txt F
+    ./Target S fileMessage.txt out.txt key.txt K
     echo ""
 
     # Clean Up Not Needed Files
@@ -80,6 +88,15 @@ execute_stream(){
     make clean
 }
 
+ta_grading(){
+    echo ""
+    printf "${GREEN}TA testing Program!${NC}\n"
+    cp Target ../examples/TAGrading/
+    mv Target cipher
+    cd ../examples/TAGrading/ 
+    ./testcases.sh
+}
+
 # Indicate end of test
 end_message(){  
     printf "${GREEN}Ending Encryption Program${NC}\n"
@@ -90,7 +107,8 @@ main(){
     make_exec
     echo ""
 
-    # test_arguments # Test that the arguments are working
+    test_arguments # Test that the arguments are working
+    make_exec
     execute_block
 
     make_exec
