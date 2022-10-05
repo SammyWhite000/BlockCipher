@@ -60,11 +60,11 @@ execute_block(){
 
     # test difference btween out.txt and TA Example
     printf "${RED}Test Difference in Output!${NC}\n"
-    diff out.txt ../examples/UpdatedTestTA/Encryption/outputBlockEncryption.txt
+    diff out.txt ../examples/TestCases/Encryption/outputBlockEncryption.txt
 
     printf "${RED}Test Decryption!${NC}\n"
     ./Target B fileMessage.txt out.txt key.txt D
-    diff out.txt ../examples/UpdatedTestTA/Decryption/outputBlockDecrypt.txt
+    diff out.txt ../examples/TestCases/Decryption/outputBlockDecryption.txt
     echo ""
 
     make clean
@@ -78,23 +78,24 @@ execute_stream(){
 
     # test difference btween out.txt and TA Example
     printf "${RED}Test Difference in Output!${NC}\n"
-    diff out.txt ../examples/UpdatedTestTA/Encryption/outputStreamEncryption.txt
+    diff out.txt ../examples/TestCases/Encryption/outputStreamEncryption.txt
 
 
     printf "${RED}Test Decryption!${NC}\n"
     ./Target S fileMessage.txt out.txt key.txt D
-    diff out.txt ../examples/UpdatedTestTA/Decryption/outputStreamDecrypt.txt
+    diff out.txt ../examples/TestCases/Decryption/outputStreamDecryption.txt
 
     make clean
 }
 
 ta_grading(){
     echo ""
-    printf "${GREEN}TA testing Program!${NC}\n"
+    printf "${GREEN}TA Testing!${NC}\n"
     cp Target ../examples/TAGrading/
-    mv Target cipher
     cd ../examples/TAGrading/ 
+    mv Target cipher
     ./testcases.sh
+    rm cipher
 }
 
 # Indicate end of test
