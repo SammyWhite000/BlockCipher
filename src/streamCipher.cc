@@ -1,14 +1,19 @@
 #include "streamCipher.h"
 
-
-// Get Message and Key from Files
-std::string fileIngest(char message_file[]){
-    std::string file = message_file; 
-    std::ifstream t(message_file);
+std::string getFileString(std::ifstream &file){
     std::stringstream buffer;
-    buffer << t.rdbuf();
+    buffer << file.rdbuf();
     std::string message = buffer.str();
     return message;
+}
+
+std::string fileIngest(char message_file[]){
+    std::ifstream file(message_file);
+    file.seekg(0, std::ios::end); 
+    if(file.tellg() == 0){
+        return "";
+    }
+    return getFileString(file);
 }
 
 // Algorithm, XOR Message with Key

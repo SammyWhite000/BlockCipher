@@ -114,10 +114,10 @@ main(){
 
     make_exec
     execute_stream
-    echo ""
 
     end_message
     echo ""
 }
+
 
 main
