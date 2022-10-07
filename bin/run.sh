@@ -111,14 +111,14 @@ main(){
     echo ""
 
     test_arguments # Test that the arguments are working
-    make_exec
-    execute_block
-
-    make_exec
-    execute_stream
+    # make_exec
+    # execute_block
 
     # make_exec
-    # ta_grading
+    # execute_stream
+
+    make_exec
+    ta_grading
 
     end_message
     echo ""

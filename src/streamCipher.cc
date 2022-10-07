@@ -32,6 +32,7 @@ void writeStream(std::string message, std::string fileName){
     out << message;
     out.close();
 }
+
 void encryptStream(char* argv[]){
     std::string key = fileIngest(argv[4]);
     std::string fileContents = fileIngest(argv[2]);
