@@ -9,10 +9,6 @@ std::string getFileString(std::ifstream &file){
 
 std::string fileIngest(char message_file[]){
     std::ifstream file(message_file);
-    file.seekg(0, std::ios::end); 
-    if(file.tellg() == 0){
-        return "";
-    }
     return getFileString(file);
 }
 
@@ -38,8 +34,14 @@ void writeStream(std::string message, std::string fileName){
 }
 void encryptStream(char* argv[]){
     std::string key = fileIngest(argv[4]);
-    std::string encrypt = streamXOR(fileIngest(argv[2]), key);
-    writeStream(encrypt, argv[3]);
+    std::string fileContents = fileIngest(argv[2]);
+    if(fileContents == ""){
+        writeStream(fileContents, argv[3]);
+    }
+    else{
+        std::string encrypt = streamXOR(fileContents, key);
+        writeStream(encrypt, argv[3]);
+    }
 }
 
 void decryptStream(char* argv[]){

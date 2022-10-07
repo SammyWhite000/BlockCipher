@@ -12,8 +12,7 @@ std::string getFileContent(char message_file[]){
     std::string fileName = message_file; 
     // Check if empty file
     std::ifstream file(fileName);
-    file.seekg(0, std::ios::end); 
-    if(file.tellg() == 0){
+    if(file.peek() == std::ifstream::traits_type::eof()){
         return "";
     }
     std::stringstream buffer;
@@ -86,13 +85,17 @@ std::string xOR(std::string updatedMessage, std::string key){
 void encrypMessage(char* argv[]){
     // Get the Message and then the key
     std::string message = getFileContent(argv[2]);
-    std::string key = getFileContent(argv[4]);
-    // Get the new message with padding
-    std::string updatedMessage = addPadding(message); 
-    std::string xORMessage = xOR(updatedMessage, key);
-    std::string encrypt = swapAlg(xORMessage, key);
-    writeFile(encrypt, argv[3]);
-
+    if(message == ""){
+        writeFile(message, argv[3]);
+    }
+    else{
+        std::string key = getFileContent(argv[4]);
+        // Get the new message with padding
+        std::string updatedMessage = addPadding(message); 
+        std::string xORMessage = xOR(updatedMessage, key);
+        std::string encrypt = swapAlg(xORMessage, key);
+        writeFile(encrypt, argv[3]);
+    }
 }
 
 std::string removePadding(std::string decryptMessage){
@@ -106,8 +109,14 @@ std::string removePadding(std::string decryptMessage){
 
 // Decrypt Message
 void decryptMessage(char* argv[]){
-    std::string decrypt = removePadding(xOR(swapAlg(getFileContent(argv[3]), getFileContent(argv[4])), getFileContent(argv[4])));
-    writeFile(removePadding(xOR(swapAlg(getFileContent(argv[3]), getFileContent(argv[4])), getFileContent(argv[4]))), argv[3]);
+    //std::string decrypt = removePadding(xOR(swapAlg(getFileContent(argv[3]), getFileContent(argv[4])), getFileContent(argv[4])));
+    std::string fileCheck =getFileContent(argv[3]); 
+    if(fileCheck == ""){
+        writeFile(fileCheck, argv[3]);
+    }
+    else{
+        writeFile(removePadding(xOR(swapAlg(getFileContent(argv[3]), getFileContent(argv[4])), getFileContent(argv[4]))), argv[3]);
+    }
 }
 
 // Determine Encryption or Decryption 
