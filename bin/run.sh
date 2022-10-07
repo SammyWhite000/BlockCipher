@@ -96,6 +96,8 @@ ta_grading(){
     mv Target cipher
     ./testcases.sh
     rm cipher
+    cd ../../src
+    make clean
 }
 
 # Indicate end of test
@@ -114,6 +116,9 @@ main(){
 
     make_exec
     execute_stream
+
+    # make_exec
+    # ta_grading
 
     end_message
     echo ""

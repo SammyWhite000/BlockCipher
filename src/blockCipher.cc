@@ -18,6 +18,7 @@ std::string getFileContent(char message_file[]){
     std::stringstream buffer;
     buffer << file.rdbuf();
     std::string message = buffer.str();
+    std::cout << "Message " << message << std::endl;
     return message;
 }
 
@@ -46,6 +47,7 @@ std::string addPadding(std::string message){
 
 // Swap elements Based On Algorithm
 std::string swapAlg(std::string xORMessage, std::string key){
+    std::cout << "Length " << xORMessage.length() << std::endl;
     char *first_element = &xORMessage.front();
     char *last_element = &xORMessage.back();
     int key_index = 0;
@@ -67,6 +69,7 @@ std::string swapAlg(std::string xORMessage, std::string key){
             first_element += 1;
         }
     }
+
     return xORMessage;
 }
 
