@@ -17,7 +17,7 @@
 2. Extract the tar file by running the below command. It should exapnd with all of the necessary program files
     * tar -xvf SamuelWhite_Encryption.tar
 
-3. There should be 3 .cc files, two .h files, and one Makefile. Make is it how we will execute our program.
+3. There should be 3 .cc files, two .h files, and one Makefile. 'Make' is it how we will execute our program.
     * There should also be two .txt files, these are not necessary to the program, but they were used for testing. You can chose to ignore these
 
 4. To make an executable file, type "make" into the console where all of the files are located. 
@@ -36,7 +36,7 @@
 
     * Example: ./Target B fileMessage.txt out.txt key.txt E
 
-7. Once the program is run in encyption mode, the output file, that was specififed in the arguments, will hold the binary values
+7. Once the program is run in encyption mode, the output file, that was specififed in the arguments, will hold the binary values of the encryption
 
 8. When the program in run in decryption mode, after encryption, the output file will hold the original message
     * When running decryption, ensure that the second parameter, the message file, is the file that contains the binary encryption of the message
