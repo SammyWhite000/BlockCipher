@@ -60,11 +60,13 @@ execute_block(){
 
     # test difference btween out.txt and TA Example
     printf "${RED}Test Difference in Output!${NC}\n"
-    diff out.txt ../examples/TestCases/Encryption/outputBlockEncryption.txt
+    #diff out.txt ../examples/TestCases/Encryption/outputBlockEncryption.txt
+    diff out.txt ../examples/TAGrading/out5.txt
 
     printf "${RED}Test Decryption!${NC}\n"
     ./Target B fileMessage.txt out.txt key.txt D
-    diff out.txt ../examples/TestCases/Decryption/outputBlockDecryption.txt
+    #diff out.txt ../examples/TestCases/Decryption/outputBlockDecryption.txt
+    diff out.txt ../examples/TAGrading/out6.txt
     echo ""
 
     make clean
