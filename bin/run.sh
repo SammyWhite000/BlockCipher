@@ -60,13 +60,11 @@ execute_block(){
 
     # test difference btween out.txt and TA Example
     printf "${RED}Test Difference in Output!${NC}\n"
-    #diff out.txt ../examples/TestCases/Encryption/outputBlockEncryption.txt
-    diff out.txt ../examples/TAGrading/out5.txt
+    diff out.txt ../examples/TestCases/Encryption/outputBlockEncryption.txt
 
     printf "${RED}Test Decryption!${NC}\n"
-    ./Target B fileMessage.txt out.txt key.txt D
-    #diff out.txt ../examples/TestCases/Decryption/outputBlockDecryption.txt
-    diff out.txt ../examples/TAGrading/out6.txt
+    ./Target B out.txt out.txt key.txt D
+    diff out.txt ../examples/TestCases/Decryption/outputBlockDecryption.txt
     echo ""
 
     make clean
@@ -84,7 +82,7 @@ execute_stream(){
 
 
     printf "${RED}Test Decryption!${NC}\n"
-    ./Target S fileMessage.txt out.txt key.txt D
+    ./Target S out.txt out.txt key.txt D
     diff out.txt ../examples/TestCases/Decryption/outputStreamDecryption.txt
 
     make clean
@@ -113,11 +111,11 @@ main(){
     echo ""
 
     test_arguments # Test that the arguments are working
-    # make_exec
-    # execute_block
+    make_exec
+    execute_block
 
-    # make_exec
-    # execute_stream
+    make_exec
+    execute_stream
 
     make_exec
     ta_grading
