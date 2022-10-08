@@ -1,6 +1,9 @@
 #include "streamCipher.h"
 
 std::string getFileString(std::ifstream &file){
+    if(file.peek() == std::ifstream::traits_type::eof()){
+        return "";
+    }
     std::stringstream buffer;
     buffer << file.rdbuf();
     std::string message = buffer.str();
@@ -47,7 +50,7 @@ void encryptStream(char* argv[]){
 
 void decryptStream(char* argv[]){
     std::string key = fileIngest(argv[4]);
-    std::string decrypt = streamXOR(fileIngest(argv[3]), fileIngest(argv[4]));
+    std::string decrypt = streamXOR(fileIngest(argv[2]), fileIngest(argv[4]));
     writeStream(decrypt, argv[3]);
 }
 

@@ -16,7 +16,7 @@ std::string setString(std::ifstream &file){
     return message;
 }
 // Get Message and Key from Files
-std::string getFileContent(char message_file[], char decider){
+std::string getFileContent(char message_file[]){
     std::string fileName = message_file; 
     // Check if empty file
     std::ifstream file(fileName);
@@ -52,7 +52,7 @@ std::string swapAlg(std::string xORMessage, std::string key){
     char *last_element = &xORMessage.back();
     int key_index = 0;
     while(first_element != last_element && first_element < last_element){
-        if(key_index == int(key.length()-1))
+        if(key_index == int(key.length()))
             key_index = 0;
 
         // Swap First and Last Pointer
@@ -96,12 +96,12 @@ std::string removePadding(std::string decryptMessage){
 // Facilitate Message Encryption 
 void encrypMessage(char* argv[]){
     // Get the Message and then the key
-    std::string message = getFileContent(argv[2], 'e');
+    std::string message = getFileContent(argv[2]);
     if(message == ""){
         writeFile(message, argv[3]);
     }
     else{
-        std::string key = getFileContent(argv[4], 'd');
+        std::string key = getFileContent(argv[4]);
         // Get the new message with padding
         std::string updatedMessage = addPadding(message); 
         std::string xORMessage = xOR(updatedMessage, key);
@@ -113,13 +113,14 @@ void encrypMessage(char* argv[]){
 // Decrypt Message
 void decryptMessage(char* argv[]){
     //std::string decrypt = removePadding(xOR(swapAlg(getFileContent(argv[3]), getFileContent(argv[4])), getFileContent(argv[4])));
-    std::string fileCheck =getFileContent(argv[3], 'd'); 
-    if(fileCheck == ""){
-        std::cout << "decrypt " << fileCheck << std::endl;
-        writeFile(fileCheck, argv[3]);
+    std::string message =getFileContent(argv[2]); 
+    std::string key =getFileContent(argv[4]); 
+    if(message == ""){
+        writeFile(message , argv[3]);
     }
     else{
-        writeFile(removePadding(xOR(swapAlg(getFileContent(argv[3],'d'), getFileContent(argv[4], 'd')), getFileContent(argv[4], 'd'))), argv[3]);
+        std::string decryptedMessage = removePadding(xOR(swapAlg(message, key), key));
+        writeFile(decryptedMessage, argv[3]);
     }
 }
 
