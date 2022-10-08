@@ -1,16 +1,24 @@
 # Encryption and Decryption Algorithm
 > Samuel White
 > CS356
-## Execute Instructions
+
+## Summary Instructions
+> These are merely a summary of the instructions, look below for more details
+1. Extract Tar file
+2. Use 'make' to make the programs executable file
+3. Use 'Target' executable to run program with necessary arguments
+4. Use 'make clean' to clean up directory
+### Execute Instructions
 
 1. There is a tar file called SamuelWhite_Encryption.tar
+    * This holds all the necessary program files for execution
     * Move this tar file into the directory where you would like the program files to be stored
 
 2. Extract the tar file by running the below command. It should exapnd with all of the necessary program files
     * tar -xvf SamuelWhite_Encryption.tar
 
-3. There should be 3 .cc files, two .h files, and one Makefile. Make it how we will execute our program.
-    * There should also be two .txt files, these are necessary to the program, but they were used for testing.
+3. There should be 3 .cc files, two .h files, and one Makefile. Make is it how we will execute our program.
+    * There should also be two .txt files, these are not necessary to the program, but they were used for testing. You can chose to ignore these
 
 4. To make an executable file, type "make" into the console where all of the files are located. 
     * This should generate some extra files, among one of them there should be an executable called "Target"
@@ -31,3 +39,6 @@
 7. Once the program is run in encyption mode, the output file, that was specififed in the arguments, will hold the binary values
 
 8. When the program in run in decryption mode, after encryption, the output file will hold the original message
+    * When running decryption, ensure that the second parameter, the message file, is the file that contains the binary encryption of the message
+
+9. Once you are done running the program, type 'make clean' into the terminal and it will get rid of the unnecessary files
