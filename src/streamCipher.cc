@@ -1,14 +1,18 @@
 #include "streamCipher.h"
 
-
-// Get Message and Key from Files
-std::string fileIngest(char message_file[]){
-    std::string file = message_file; 
-    std::ifstream t(message_file);
+std::string getFileString(std::ifstream &file){
+    if(file.peek() == std::ifstream::traits_type::eof()){
+        return "";
+    }
     std::stringstream buffer;
-    buffer << t.rdbuf();
+    buffer << file.rdbuf();
     std::string message = buffer.str();
     return message;
+}
+
+std::string fileIngest(char message_file[]){
+    std::ifstream file(message_file);
+    return getFileString(file);
 }
 
 // Algorithm, XOR Message with Key
@@ -31,15 +35,22 @@ void writeStream(std::string message, std::string fileName){
     out << message;
     out.close();
 }
+
 void encryptStream(char* argv[]){
     std::string key = fileIngest(argv[4]);
-    std::string encrypt = streamXOR(fileIngest(argv[2]), key);
-    writeStream(encrypt, argv[3]);
+    std::string fileContents = fileIngest(argv[2]);
+    if(fileContents == ""){
+        writeStream(fileContents, argv[3]);
+    }
+    else{
+        std::string encrypt = streamXOR(fileContents, key);
+        writeStream(encrypt, argv[3]);
+    }
 }
 
 void decryptStream(char* argv[]){
     std::string key = fileIngest(argv[4]);
-    std::string decrypt = streamXOR(fileIngest(argv[3]), fileIngest(argv[4]));
+    std::string decrypt = streamXOR(fileIngest(argv[2]), fileIngest(argv[4]));
     writeStream(decrypt, argv[3]);
 }
 

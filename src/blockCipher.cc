@@ -6,15 +6,21 @@ void writeFile(std::string message, std::string fileName){
     out << message;
     out.close();
 }
-
-// Get Message and Key from Files
-std::string getFileContent(char message_file[]){
-    std::string file = message_file; 
-    std::ifstream t(message_file);
+std::string setString(std::ifstream &file){
+    if(file.peek() == std::ifstream::traits_type::eof()){
+        return "";
+    }
     std::stringstream buffer;
-    buffer << t.rdbuf();
+    buffer << file.rdbuf();
     std::string message = buffer.str();
     return message;
+}
+// Get Message and Key from Files
+std::string getFileContent(char message_file[]){
+    std::string fileName = message_file; 
+    // Check if empty file
+    std::ifstream file(fileName);
+    return setString(file); 
 }
 
 // Determine number of bytes of padding needed
@@ -45,7 +51,7 @@ std::string swapAlg(std::string xORMessage, std::string key){
     char *first_element = &xORMessage.front();
     char *last_element = &xORMessage.back();
     int key_index = 0;
-    while(first_element != last_element){
+    while(first_element != last_element && first_element < last_element){
         if(key_index == int(key.length()))
             key_index = 0;
 
@@ -63,6 +69,7 @@ std::string swapAlg(std::string xORMessage, std::string key){
             first_element += 1;
         }
     }
+
     return xORMessage;
 }
 
@@ -77,19 +84,6 @@ std::string xOR(std::string updatedMessage, std::string key){
     return result;
 }
 
-// Facilitate Message Encryption 
-void encrypMessage(char* argv[]){
-    // Get the Message and then the key
-    std::string message = getFileContent(argv[2]);
-    std::string key = getFileContent(argv[4]);
-    // Get the new message with padding
-    std::string updatedMessage = addPadding(message); 
-    std::string xORMessage = xOR(updatedMessage, key);
-    std::string encrypt = swapAlg(xORMessage, key);
-    writeFile(encrypt, argv[3]);
-
-}
-
 std::string removePadding(std::string decryptMessage){
     std::string noPadding;
     for(size_t i = 0; i < decryptMessage.length(); i++){
@@ -99,10 +93,35 @@ std::string removePadding(std::string decryptMessage){
     return noPadding;
 }
 
+// Facilitate Message Encryption 
+void encrypMessage(char* argv[]){
+    // Get the Message and then the key
+    std::string message = getFileContent(argv[2]);
+    if(message == ""){
+        writeFile(message, argv[3]);
+    }
+    else{
+        std::string key = getFileContent(argv[4]);
+        // Get the new message with padding
+        std::string updatedMessage = addPadding(message); 
+        std::string xORMessage = xOR(updatedMessage, key);
+        std::string encrypt = swapAlg(xORMessage, key);
+        writeFile(encrypt, argv[3]);
+    }
+}
+
 // Decrypt Message
 void decryptMessage(char* argv[]){
-    std::string decrypt = removePadding(xOR(swapAlg(getFileContent(argv[3]), getFileContent(argv[4])), getFileContent(argv[4])));
-    writeFile(removePadding(xOR(swapAlg(getFileContent(argv[3]), getFileContent(argv[4])), getFileContent(argv[4]))), argv[3]);
+    //std::string decrypt = removePadding(xOR(swapAlg(getFileContent(argv[3]), getFileContent(argv[4])), getFileContent(argv[4])));
+    std::string message =getFileContent(argv[2]); 
+    std::string key =getFileContent(argv[4]); 
+    if(message == ""){
+        writeFile(message , argv[3]);
+    }
+    else{
+        std::string decryptedMessage = removePadding(xOR(swapAlg(message, key), key));
+        writeFile(decryptedMessage, argv[3]);
+    }
 }
 
 // Determine Encryption or Decryption 

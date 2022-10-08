@@ -20,7 +20,7 @@ echo "File-3"
 ./cipher S empt.txt out.txt key2.txt E
 echo "File-4"
 ./cipher S empty.txt out.txt ky.txt E
-echo "----------4------------"
+echo "----------3------------"
 echo "B Empty Check E"
 ./cipher B empty.txt out1.txt key2.txt E
 diff out1.txt empty.txt
