@@ -1,5 +1,6 @@
 # Encryption and Decryption Algorithm
-
+> Samuel White
+> CS356
 ## Execute Instructions
 
 1. There is a tar file called SamuelWhite_Encryption.tar
@@ -26,3 +27,7 @@
     5. Character that is either 'E' or 'D' which will determine if the program will execute an encryption or decryption
 
     * Example: ./Target B fileMessage.txt out.txt key.txt E
+
+7. Once the program is run in encyption mode, the output file, that was specififed in the arguments, will hold the binary values
+
+8. When the program in run in decryption mode, after encryption, the output file will hold the original message
