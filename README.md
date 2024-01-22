@@ -1,5 +1,4 @@
 # BlockCipher
-> Block Cipher and Stream cipher program
 * In order to run this program, navigate to the bin directory
 
 * Execute this command "chmod +x run.sh"
